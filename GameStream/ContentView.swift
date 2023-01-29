@@ -28,7 +28,7 @@ struct ContentView: View {
 
 struct initAndRegisterView:View {
     
-    @State var initSessionType = false
+    @State var initSessionType = true
     
     var body: some View{
         VStack{
@@ -199,7 +199,9 @@ struct signUpView:View{
             VStack(alignment: .leading){
                 
                 VStack(alignment: .leading){
-                    Text("Correo electronico*").foregroundColor(Color("dark-cian"))
+                    Text("Correo electronico*")
+                        .foregroundColor(Color("dark-cian"))
+                        .frame(width: 300, alignment: .leading)
                     
                     ZStack(alignment: .leading){
                         
@@ -246,11 +248,7 @@ struct signUpView:View{
                     }
                     
                     Divider().frame(height: 1).background(Color("dark-cian")).padding(.bottom)
-                    
-                    
-                    Text("¿Olvidaste tu contraseña?").font(.footnote).frame(width: 300, alignment: .trailing)
-                        .foregroundColor(Color("dark-cian"))
-                        .padding(.bottom)
+
                     
                 }
                 
