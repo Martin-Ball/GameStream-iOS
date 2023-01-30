@@ -10,18 +10,20 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         
-        ZStack {
-            
-            Spacer()
-            
-            Color(red: 19/255, green: 30/255, blue:                 53/255, opacity: 1.0).ignoresSafeArea()
-            
-            VStack{
-                Image("appLogo").resizable().aspectRatio(contentMode: .fit).frame(width: 250).padding(.bottom ,42)
+        NavigationView {
+            ZStack {
                 
-                initAndRegisterView()
-            }
-            
+                Spacer()
+                
+                Color(red: 19/255, green: 30/255, blue: 53/255, opacity: 1.0).ignoresSafeArea()
+                
+                VStack{
+                    Image("appLogo").resizable().aspectRatio(contentMode: .fit).frame(width: 250).padding(.bottom ,42)
+                    
+                    initAndRegisterView()
+                }
+                
+            }.navigationBarHidden(true)
         }
     }
 }
@@ -66,6 +68,7 @@ struct initAndRegisterView:View {
 struct signInView:View{
     @State var email = ""
     @State var password = ""
+    @State var isHomeViewActive = false
     
     var body:some View {
         
@@ -82,6 +85,7 @@ struct signInView:View{
                     }
                     
                     TextField("", text: $email)
+                        .foregroundColor(.white)
                 }
                 
                 Divider().frame(height: 1)
@@ -99,6 +103,7 @@ struct signInView:View{
                     }
                     
                     TextField("", text: $password)
+                        .foregroundColor(.white)
                 }
                 
                 Divider().frame(height: 1).background(Color("dark-cian")).padding(.bottom)
@@ -154,9 +159,19 @@ struct signInView:View{
                     }
                 }
             }
+            
+            NavigationLink(destination: Home(), isActive: $isHomeViewActive, label: {
+                    EmptyView()
+            })
         }.padding(.horizontal, 77.0)
         
         Text("VISTA DE INICIO DE SESION")
+    }
+    
+    func login(){
+        print("estoy iniciando sesion")
+        
+        isHomeViewActive = true
     }
 }
 
@@ -212,6 +227,7 @@ struct signUpView:View{
                         }
                         
                         TextField("", text: $email)
+                            .foregroundColor(.white)
                     }
                     
                     Divider().frame(height: 1)
@@ -229,6 +245,7 @@ struct signUpView:View{
                         }
                         
                         TextField("", text: $password)
+                            .foregroundColor(.white)
                     }
                     
                     Divider().frame(height: 1).background(Color("dark-cian")).padding(.bottom)
@@ -245,6 +262,7 @@ struct signUpView:View{
                         }
                         
                         SecureField("", text: $confirmPassword)
+                            .foregroundColor(.white)
                     }
                     
                     Divider().frame(height: 1).background(Color("dark-cian")).padding(.bottom)
@@ -275,7 +293,7 @@ struct signUpView:View{
                         
                         Spacer()
                         
-                        Button(action: login, label: {
+                        Button(action: signUp, label: {
                             Text("Facebook")
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
@@ -286,7 +304,7 @@ struct signUpView:View{
                         
                         Spacer()
                         
-                        Button(action: login, label: {
+                        Button(action: signUp, label: {
                             Text("Twitter")
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
@@ -301,7 +319,7 @@ struct signUpView:View{
                 }
             }.padding(.horizontal, 77.0)
             
-            Text("VISTA DE INICIO DE SESION")
+            Text("VISTA DE REGISTRO")
         }
     }
 }
@@ -313,10 +331,6 @@ struct ContentView_Previews: PreviewProvider {
         
         ContentView()
     }
-}
-
-func login(){
-    print("estoy iniciando sesion")
 }
 
 func takePhoto(){
