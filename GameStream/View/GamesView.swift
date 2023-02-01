@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct GamesView: View {
     
@@ -16,6 +17,7 @@ struct GamesView: View {
     @State var studio : String = ""
     @State var calification : String = ""
     @State var publicationYear : String = ""
+    @State var description : String = ""
     @State var tags : [String] = [""]
     @State var imgsUrl : [String] = [""]
     
@@ -27,7 +29,7 @@ struct GamesView: View {
     var body: some View {
         ZStack{
             
-            Color("blue-gray").ignoresSafeArea()
+            Color("marine-blue").ignoresSafeArea()
             
             VStack{
                 Text("JUEGOS")
@@ -37,7 +39,31 @@ struct GamesView: View {
                     .padding(EdgeInsets(top: 16, leading: 0, bottom: 64, trailing: 0))
                 
                 ScrollView{
-                    
+                    LazyVGrid(columns: shapeGrid, spacing: 8){
+                        ForEach(allVideoGames.gamesInfo, id: \.self ){
+                            game in
+                            
+                            Button(action: {
+                                url = game.videosUrls.mobile!
+                                title = game.title!
+                                studio = game.studio!
+                                calification = game.contentRaiting!
+                                publicationYear = game.publicationYear!
+                                description = game.description!
+                                tags = game.tags!
+                                imgsUrl = game.galleryImages!
+                                
+                                print("pulse el juego: \(title)")
+                                
+                            }, label: {
+                                KFImage(URL(string: game.galleryImages![0])!)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .clipShape(RoundedRectangle.init(cornerRadius: 4))
+                                    .padding(.bottom, 12)
+                            })
+                        }
+                    }
                 }
             }.padding(.horizontal, 6.0)
             
