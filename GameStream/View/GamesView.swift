@@ -10,10 +10,38 @@ import SwiftUI
 struct GamesView: View {
     
     @ObservedObject var allVideoGames = ViewModel()
+    @State var gameViewIsActive : Bool = false
+    @State var url:String = ""
+    @State var title : String = ""
+    @State var studio : String = ""
+    @State var calification : String = ""
+    @State var publicationYear : String = ""
+    @State var tags : [String] = [""]
+    @State var imgsUrl : [String] = [""]
+    
+    let shapeGrid = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
     
     var body: some View {
-        Text("Pantalla gamesView")
-            .navigationBarHidden(true)
+        ZStack{
+            
+            Color("blue-gray").ignoresSafeArea()
+            
+            VStack{
+                Text("JUEGOS")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .padding(EdgeInsets(top: 16, leading: 0, bottom: 64, trailing: 0))
+                
+                ScrollView{
+                    
+                }
+            }.padding(.horizontal, 6.0)
+            
+        }.navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
             .onAppear(
                 perform: {
