@@ -43,26 +43,22 @@ struct GamesView: View {
                         ForEach(allVideoGames.gamesInfo, id: \.self ){
                             game in
                             
-                            Button(action: {
-                                url = game.videosUrls.mobile!
-                                title = game.title!
-                                studio = game.studio!
-                                calification = game.contentRaiting!
-                                publicationYear = game.publicationYear!
-                                description = game.description!
-                                tags = game.tags!
-                                imgsUrl = game.galleryImages!
-                                
-                                print("pulse el juego: \(title)")
-                                
-                            }, label: {
-                                KFImage(URL(string: game.galleryImages![0])!)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .clipShape(RoundedRectangle.init(cornerRadius: 4))
-                                    .padding(.bottom, 12)
-                            })
-                        }
+                            NavigationLink(destination: GameView(url: game.videosUrls.mobile!, title: game.title!, studio: game.studio!, calification: game.contentRaiting!, publicationYear: game.publicationYear!, description: game.description!, tags: game.tags!, imgsUrl: imgsUrl), label: {
+                                VStack
+                                {
+                                    AsyncImage( url: URL( string: game.galleryImages![0])!)
+                                    { image in
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .clipShape(RoundedRectangle(cornerRadius: 11))
+                                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                                        
+                                    } placeholder: {
+                                        EmptyView()
+                                    }
+                                }})
+                       }
                     }
                 }
             }.padding(.horizontal, 6.0)
@@ -71,10 +67,9 @@ struct GamesView: View {
             .navigationBarBackButtonHidden(true)
             .onAppear(
                 perform: {
-                    print("primer elemento del json : \(allVideoGames.gamesInfo[0])")
-                    print("Titulo del primer videojuego del json \(allVideoGames.gamesInfo[0].title)")
-                }
-            )
+//                    print("primer elemento del json : \(allVideoGames.gamesInfo[0])")
+//                    print("Titulo del primer videojuego del json \(String(describing: allVideoGames.gamesInfo[0].title))")
+                })
     }
 }
 
