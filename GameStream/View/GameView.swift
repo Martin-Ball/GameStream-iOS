@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AVKit
+import Kingfisher
 
 struct GameView: View {
     
@@ -31,7 +32,9 @@ struct GameView: View {
                     //Info at video
                     VideoInfo(title: title, studio: studio, calification: calification, publicationYear: publicationYear, description: description, tags: tags).padding(.bottom)
                     
+                    Gallery(imgsUrl: imgsUrl)
                     
+                    Comments()
                     
                 }.frame(maxWidth: .infinity)
             }
@@ -115,6 +118,92 @@ struct VideoInfo : View {
                         .padding(.top, 5)
                         .padding(.leading)
                 }
+            }
+            
+        }.frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
+struct Gallery : View {
+    
+    var imgsUrl:[String]
+    
+    let shapeGrid = [
+        GridItem(.flexible())
+    ]
+    
+    var body: some View{
+        
+        VStack(alignment: .leading){
+            
+            Text("GALERIA")
+                .foregroundColor(.white)
+                .font(.title)
+                .bold()
+                .padding(.leading)
+            
+            ScrollView(.horizontal){
+                LazyHGrid(rows: shapeGrid, spacing: 8){
+                    
+                    ForEach(imgsUrl, id: \.self){
+                        
+                        imgUrl in
+                        
+                        //Deploy images of server with url
+                        KFImage(URL(string: imgUrl))
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                        
+                    }
+                    
+                }
+            }.frame(height: 180)
+            
+        }.frame(maxWidth: .infinity, alignment: .leading)
+        
+    }
+}
+
+struct Comments: View{
+    
+    var body: some View{
+        VStack(alignment: .leading){
+            Text("COMENTARIOS")
+                .foregroundColor(.white)
+                .font(.title2)
+                .padding(.leading)
+                .padding(.bottom)
+                .padding(.top)
+            
+            
+            ZStack(alignment: .leading){
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color("Comments"))
+                    .frame(maxWidth: .infinity, maxHeight: 250)
+                    .padding()
+                VStack(alignment: .leading){
+                    HStack{
+                        Image("profile")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 60, height: 60, alignment: .center
+                            )
+                            .clipShape(Circle())
+                        
+                        VStack(alignment: .leading){
+                            Text("Mr Bean")
+                                .font(.title3)
+                                .foregroundColor(.white)
+                            Text("Hace 12 días")
+                                .foregroundColor(.white)
+                        }
+                    }
+                    
+                    Text("He visto que como media tiene una gran calificación, y estoy completamente de acuerdo. Es el mejor juego que he jugado sin ninguna duda, combina una buena trama con una buenísima experiencia de juego libre gracias a su inmenso mapa y actividades.")
+                        .foregroundColor(.white)
+                    
+                    Spacer()
+                }.padding(EdgeInsets(top: 30, leading: 30, bottom: 30, trailing: 30))
             }
             
         }.frame(maxWidth: .infinity, alignment: .leading)
