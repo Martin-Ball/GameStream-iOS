@@ -27,3 +27,9 @@ struct videoUrl : Codable, Hashable {
     var mobile : String?
     var tablet : String?
 }
+
+struct Results : Codable {
+    var results : [Game]?
+}
+
+
