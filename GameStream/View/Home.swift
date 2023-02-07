@@ -16,7 +16,7 @@ struct Home: View {
         
         TabView(selection: $tabSelected){
             
-            Text("Pantalla Perfil")
+           ProfileView()
                 .font(.system(size: 30, weight: .bold, design: .rounded))
                 .tabItem{
                     

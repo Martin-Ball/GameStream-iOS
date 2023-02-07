@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct FavoritesView: View {
     @ObservedObject var allGames = ViewModel()
@@ -24,7 +25,25 @@ struct FavoritesView: View {
                 
                 ScrollView{
                     
-                }
+                    ForEach(allGames.gamesInfo, id: \.self) {
+                        game in
+                        
+                        VStack(spacing: 0) {
+                            VideoPlayer(player: AVPlayer(url: URL(string: game.videosUrls.mobile!)!))
+                                .frame(height: 300)
+                            
+                            Text("\(game.title!)")
+                                .foregroundColor(Color.white)
+                                .font(.title2)
+                                .padding()
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .background(Color("blue-gray"))
+                                .clipShape(RoundedRectangle(cornerRadius: 3.0))
+                        }
+                        
+                    }
+                    
+                }.padding(.bottom, 8)
             }.padding(.horizontal, 6)
         }.navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
