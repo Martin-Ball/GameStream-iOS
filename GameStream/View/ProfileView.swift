@@ -76,7 +76,7 @@ struct SettingsModule : View {
                     
                     Spacer()
                     
-                    Text(">").foregroundColor(.white)
+                    Image(systemName: "chevron.right").foregroundColor(.white)
                 }.padding()
             }).background(Color("blue-gray"))
                 .clipShape(RoundedRectangle(cornerRadius: 1.0))
@@ -102,7 +102,7 @@ struct SettingsModule : View {
                     
                     Spacer()
                     
-                    Text(">").foregroundColor(.white)
+                    Image(systemName: "chevron.right").foregroundColor(.white)
                 }.padding()
             }).background(Color("blue-gray"))
                 .clipShape(RoundedRectangle(cornerRadius: 1.0))
@@ -114,10 +114,14 @@ struct SettingsModule : View {
                     
                     Spacer()
                     
-                    Text(">").foregroundColor(.white)
+                    Image(systemName: "chevron.right").foregroundColor(.white)
                 }.padding()
             }).background(Color("blue-gray"))
                 .clipShape(RoundedRectangle(cornerRadius: 1.0))
+            
+            NavigationLink(destination: EditProfileView(), isActive: $isEditProfileViewActive, label: {
+                EmptyView()
+            })
             
         }
     }
