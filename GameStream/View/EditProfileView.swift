@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct EditProfileView: View {
+    
+    @State var profileImage:Image? = Image("perfilEjemplo")
+    @State var isCameraActive:Bool = false
     var body: some View {
         ZStack{
             Color("marine-blue").ignoresSafeArea()
@@ -16,14 +19,16 @@ struct EditProfileView: View {
                 
                 VStack{
                     
-                    Button(action: {}, label: {
+                    Button(action: {isCameraActive = true}, label: {
                         
                         ZStack{
-                            Image("perfilEjemplo")
+                            profileImage!
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 118, height: 118)
                                 .clipShape(Circle())
+                                .sheet(isPresented: $isCameraActive, content: { SUImagePickerView(sourceType: .photoLibrary, image: self.$profileImage, isPresented: self.$isCameraActive)
+                                })
                             
                             
                             Image(systemName: "camera").foregroundColor(.white)
@@ -89,12 +94,12 @@ struct EditModule : View {
             
             ZStack(alignment: .leading){
                 
-                if password.isEmpty {
+                if userName.isEmpty {
                     Text("Introduce tu nombre de usuario").font(.caption)
                         .foregroundColor(.gray)
                 }
                 
-                TextField("", text: $password)
+                TextField("", text: $userName)
                     .foregroundColor(.white)
             }
             

@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     
     @State var userName = "Martin"
+    @State var imageProfile:UIImage = UIImage(named: "profileImage")!
     
     
     var body: some View {
@@ -20,7 +21,7 @@ struct ProfileView: View {
             
             VStack{
                 
-                Text("Perfil")
+                Image(uiImage: imageProfile)
                     .fontWeight(.bold)
                     .foregroundColor(Color.white)
                     .frame(minWidth: 0, idealWidth: 100, maxWidth: .infinity,
@@ -49,9 +50,30 @@ struct ProfileView: View {
         
             perform: {
                 print("Revisando informacion del usuario")
+                
+                if returnUiImage(name: "profileImage") != nil {
+                    imageProfile = returnUiImage(name: "profileImage")!
+                }else{
+                    print("no se encontro la imagen de perfil")
+                }
+                
+                if UserDefaults.standard.object(forKey: "userData") != nil {
+                    userName = UserDefaults.standard.stringArray(forKey: "userData")![2]
+                }else{
+                    print("No se encontro la informacion del usuario")
+                }
             }
             
         )
+    }
+    
+    func returnUiImage(name:String) -> UIImage? {
+        if let dir = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false){
+            return UIImage(contentsOfFile: URL(fileURLWithPath: dir.absoluteString).appendingPathComponent(name).path)
+        }
+        
+        return nil
+            
     }
 }
 
@@ -73,6 +95,7 @@ struct SettingsModule : View {
                 HStack{
                     Text("Cuenta")
                         .foregroundColor(.white)
+                        .font(.body)
                     
                     Spacer()
                     
@@ -85,6 +108,7 @@ struct SettingsModule : View {
                 HStack{
                     Text("Notificaciones")
                         .foregroundColor(.white)
+                        .font(.body)
                     
                     Spacer()
                     
@@ -99,6 +123,7 @@ struct SettingsModule : View {
                 HStack{
                     Text("Editar perfil")
                         .foregroundColor(.white)
+                        .font(.body)
                     
                     Spacer()
                     
@@ -111,6 +136,7 @@ struct SettingsModule : View {
                 HStack{
                     Text("Califica esta aplicacion")
                         .foregroundColor(.white)
+                        .font(.body)
                     
                     Spacer()
                     
